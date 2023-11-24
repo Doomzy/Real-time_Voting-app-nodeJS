@@ -1,0 +1,50 @@
+<%- include('../partials/_header.ejs') %>
+<section id="<%= poll.id %>" data-type="page" class="<%= poll.done? 'donePoll' : 'ongoingPoll' %>">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+          <form id="Poll_vote" class="col-md-6 col-sm-12">
+            <h4 style="text-align: center;">
+                <% if(poll.done == true){ %>
+                    Status: Done
+                <% }else{ %>
+                    <span class="timer"><%= poll.duration %></span>
+                <% } %>
+            </h4>     
+            <div class="divider d-flex align-items-center my-4"></div>
+            <h3 style="color: black">
+                <%= poll.topic %>
+            </h3> 
+            <small class="date" data="<%= poll.createdAt %>"></small>
+            <div class="divider d-flex align-items-center my-4"></div>
+            <% poll.options.forEach( opt=>{ %>
+                <div class="form-outline mb-4">
+                    <input class="form-check-input" value="<%= opt.id %>" type="radio" name="vote" id="opt<%= opt.id %>">
+                    <label class="form-label" for="opt<%= opt.id %>"><%= opt.text %></label>
+                </div>
+            <% }) %>
+            <div class="form-outline my-4">
+                Email:
+                <input type="email" name="v_email" id="v_email" class="form-control form-control-lg"
+                  placeholder="Please Enter an Email" required/>
+            </div>
+            <div>
+                <small>Send Result to mail </small>
+                <input type="checkbox" name="sendMail" id="sendMail">
+            </div>
+
+            <div class="text-center text-lg-start mt-4 pt-2">
+                <button type="button" onclick="submitVoteBtn('<%= poll.id %>')" class="btn btn-success btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Vote
+                </button>
+            </div>
+  
+          </form>
+      </div>
+    </div>
+</section>
+<%- include('../partials/_footer.ejs') %>
+<script>
+    socket.emit("pollWatch", '<%= poll.id %>')   
+</script>
+<script type="module" src="/timer.js"></script>
+

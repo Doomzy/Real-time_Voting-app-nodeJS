@@ -1,0 +1,91 @@
+<%- include('../partials/_header.ejs') %>
+<section id="<%= poll.id %>" data-type="page" class="<%= poll.done? 'donePoll' : 'ongoingPoll' %>">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+          <div id="Poll_result" class="col-md-6 col-sm-12">
+            <h4 style="text-align: center;">
+                <% if(poll.done == true){ %>
+                    Status: Done
+                <% }else{ %>
+                    <span class="timer"><%= poll.duration %></span>
+                <% } %>
+            </h4>    
+            <% if(user && poll.owner.uid == user.uid){ %>
+                <div class="d-flex justify-content-end">
+                    <a href="/polls/mypolls" class="btn btn-outline-primary mt-3 btn-lg px-5">
+                        Back to list
+                    </a>
+                </div>
+            <% } %>
+            <% if(poll.done == false){ %>
+            <div class="divider d-flex align-items-center my-2"></div>
+            <h4>Share Your Poll:</h4>
+            <div id="share_poll">
+                <code id="poll_link"> http://localhost:5000/polls/vote/<%= poll.id %> </code>
+                <button class="btn btn-outline-secondary mt-3" onclick="copyVoteLink(this)" >
+                    Copy
+                </button>
+            </div>
+            <% } %>
+            <div class="divider d-flex align-items-center my-4"></div>
+            <h3 style="color: black" id="poll_info" total_voters="<%= poll.total_voters %>">
+                <%= poll.topic %>
+            </h3> 
+            <small>
+                <span>
+                    <strong>Created By : </strong>
+                    <a href="/users/<%= poll.owner.uid %>">
+                        <%= poll.owner.email %>
+                    </a>
+                </span>
+            </small>
+            <br>
+            <small class="date" data="<%= poll.createdAt %>">
+                <%= new Date(poll.createdAt).toLocaleDateString() %>
+            </small>
+            <div class="divider d-flex align-items-center my-3"></div>
+
+            <% poll.options.forEach(opt=>{%>
+                <% var votes_percentage= +((opt.votes/poll.total_voters)*100).toFixed(1) || 0 %>
+                <div class="mb-4" s>
+                    <span style="<%= +alreadyVoted == +opt.id? 'font-weight: 600; color:green;' : ' ' %>"
+                    ><%= opt.text %>
+                    </span>
+                    <div class="optBar" id="optBar<%= opt.id %>">
+                        <div class="d-flex">
+                            <span class="option_title" style="width:<%= votes_percentage %>%"></span>
+                            <span class="percent"><%= votes_percentage %> %</span>
+                        </div>
+                        <div style="margin-top: -15px;">
+                            <small>Votes:</small>
+                            <small class="total_votes"><%= opt.votes %></small>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+
+            <% if(user && poll.owner.uid == user.uid){ %>
+                <div class="text-right text-lg-start mt-4 pt-2">
+                    <% if(poll.done == true){ %>
+                        <form class="d-inline" method="post" action="/polls/cancel/<%= poll.id %>">  
+                            <button type="submit" class="btn btn-danger btn-lg px-5">
+                                Delete
+                            </button>
+                        </form>
+                    <% }else{ %>
+                        <button type="button" onclick="endPoll('<%= poll.id %>')" class="btn btn-danger btn-lg px-5">
+                            End
+                        </button>
+                    <% } %>
+                </div>
+            <% } %>
+            </div>
+      </div>
+    </div>
+</section>
+<%- include('../partials/_footer.ejs') %>
+
+<script>
+    socket.emit("pollWatch", '<%= poll.id %>')
+</script>
+<script type="module" src="/timer.js"></script>

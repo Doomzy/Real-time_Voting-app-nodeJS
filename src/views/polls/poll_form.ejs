@@ -1,0 +1,69 @@
+<%- include('../partials/_header.ejs') %>
+
+<section class="">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+          <form id="PollCreation" method="post" class="col-md-6 col-sm-12">  
+            <div class="d-flex justify-content-end">
+              <a href="/" class="btn btn-outline-primary mt-3 btn-lg px-5">
+                  Back Home
+              </a>
+            </div>
+            <div class="divider d-flex align-items-center my-4"></div>
+            <div class="form-outline mb-3">
+              <label class="form-label d-inline" for="poll_topic">
+                Poll Topic
+                <input type="text" name="topic" id="poll_topic" class="form-control form-control-lg"
+                placeholder="Enter a topic" maxlength="200" />
+              </label>
+            </div>
+            <div class="divider d-flex align-items-center my-4"></div>
+            <div id="duration" class="row">
+              <h3 class="mb-3 col-2" style="align-self: center;">Duration:</h3>
+              <label class="form-label col-md-3 col-sm-10" for="duration">
+                In Minutes
+                <input type="number" name="duration" id="duration" class="form-control form-control-lg"
+                placeholder="0~59" max="59" min="0" required/>
+              </label>
+            </div>
+
+            <div class="divider d-flex align-items-center my-4"></div>
+            <h3 class="mb-3">Options:</h3>
+            <div id="poll_options">
+              <label class="form-label d-inline" for="opt0">
+                Option 1
+                <input type="text" name="options[0][text]" id="opt0" class="form-control form-control-lg"
+                placeholder="Enter an option" maxlength="200" required/>
+                <input type="number" value="0" name="options[0][id]"class="d-none"
+                maxlength="1" required/>
+              </label>
+              <label class="form-label d-inline" for="opt1">
+                Option 2
+                <input type="text" name="options[1][text]" id="opt1" class="form-control form-control-lg"
+                placeholder="Enter an option" maxlength="200" required/>
+                <input type="number" value="1" name="options[1][id]"class="d-none"
+                maxlength="1" required/>
+              </label>
+            </div>
+            
+            <div class="text-right mt-2 pt-1">
+              <button id="rmv_opt" type="button" class="btn btn-danger d-none btn-lg px-4">
+                Remove
+              </button>
+
+              <button id="add_opt" type="button" class="btn btn-secondary btn-lg px-4">
+                Add
+              </button>
+            </div>
+
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button type="button" onclick="postRequest('createPoll', 'PollCreation')" class="btn btn-primary btn-lg px-5">
+                Create
+              </button>
+            </div>
+  
+          </form>
+      </div>
+    </div>
+</section>
+<%- include('../partials/_footer.ejs') %>

@@ -1,0 +1,81 @@
+<%- include('../partials/_header.ejs') %>
+<div class="container mt-5">
+    <div class="d-flex justify-content-end mb-3">
+        <a href="/" class="btn btn-outline-primary mt-3 btn-lg px-5">
+            Back Home
+        </a>
+      </div>        
+    <section class="content">
+        <div class="col-md-12 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="pull-right mx-4">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success btn-filter" data-target="on_going">On Going</button>
+                            <button type="button" class="btn btn-danger btn-filter" data-target="done">Done</button>
+                            <button type="button" class="btn btn-warning btn-filter" data-target="all">All</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="table table-filter">
+                            <tbody id="pollsTable">
+                                <% ongoingP.forEach(poll=>{ %>
+                                <tr id="<%= poll.id %>" class="ongoingPoll" data-status="on_going" data-type="list">
+                                    <td>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                    <h4 class="title">
+                                                        <a href="/polls/<%= poll.id %>">
+                                                            <%= poll.topic %>
+                                                        </a>
+                                                        <span class="timer pull-right on_going">
+                                                            <%= poll.duration %>
+                                                        </span>
+                                                        <span class="date pull-right fw-normal" data="<%= poll.createdAt %>">
+                                                            <%= new Date(poll.createdAt).toLocaleDateString() %>
+                                                        </span>
+                                                    </h4>
+                                                <p class="summary"><i>Result:</i> no result yet</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>                                    
+                                <% }) %>
+                                <% doneP.forEach(poll=>{ %>
+                                <tr class="donePoll" data-status="done">
+                                    <td>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <h4 class="title">
+                                                    <a href="/polls/<%= poll.id %>">
+                                                        <%= poll.topic %>
+                                                    </a>
+                                                    <span class="pull-right done">Done</span>
+                                                    <span class="pull-right fw-normal"><%= new Date(poll.createdAt).toLocaleDateString() %></span>
+                                                </h4>
+                                                <% var winningOpt= poll.options.reduce(
+                                                    (p, c)=>(p && p.votes > c.votes) ? p : c) 
+                                                %>
+                                                <p class="summary"><i>Result:</i> 
+                                                   <i style="font-weight: bold;"><%= winningOpt.text %></i>
+                                                    <%= +(winningOpt.votes*100/poll.total_voters).toFixed(1) || 0 %>%
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<%- include('../partials/_footer.ejs') %>
+<script>
+    socket.emit("userPolls", '<%= user.uid %>')
+</script>
+<script type="module" src="/timer.js"></script>
+

@@ -1,0 +1,24 @@
+<%- include('./partials/_header.ejs') %>
+<section class="">
+    <div class="container-fluid h-custom mt-5 d-flex justify-content-center">
+        <div class="ctrl-btns col-md-8 col-lg-6 col-xl-6 row">
+            <a href="/polls/create" class="btn btn-lg col-md-5 mb-5" role="button">
+                <i class="fa fa-plus"></i>
+                <br />Start Poll
+            </a>
+            <a href="/polls/mypolls"+ class="btn btn-lg col-md-5 mb-5" role="button">
+                <i class="fa fa-list"></i>
+                <br />My Polls
+            </a>
+            <a href="/users/<%= user.uid %>" class="btn btn-lg col-md-5 mb-5" role="button">
+                <i class="fa fa-user"></i>
+                <br />Profile
+            </a>
+            <a href="/users/logout" class="btn btn-lg col-md-5 mb-5" role="button">
+                <i class="fa fa-sign-out"></i>                        
+                <br />Logout
+            </a>
+        </div>
+    </div>
+</section>
+<%- include('./partials/_footer.ejs') %>

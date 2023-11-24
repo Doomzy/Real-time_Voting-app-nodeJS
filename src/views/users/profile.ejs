@@ -1,0 +1,26 @@
+<%- include('../partials/_header.ejs') %>
+
+<div class="container mt-5">    
+  <div class="d-flex justify-content-end">
+    <a href="/" class="btn btn-outline-primary mt-3 btn-lg px-5">
+        Back Home
+    </a>
+  </div>
+    <div class="jumbotron bg-transparent">
+      <div class="row">
+          <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
+              <img src="https://i.pravatar.cc/250?u=<%=profileUser.email%>" alt="stack photo" class="img">
+          </div>
+          <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
+              <div class="container">
+                <h2><%=profileUser.first_name%> <%=profileUser.last_name%></h2>
+              </div>
+                <hr>
+              <ul class="container details">
+                <li><h4><%=profileUser.email%></h4></li>
+                <li><p><%=profileUser.phone%></p></li>
+              </ul>
+          </div>
+      </div>
+    </div>
+<%- include('../partials/_footer.ejs') %>
