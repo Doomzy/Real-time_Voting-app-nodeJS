@@ -1,91 +1,82 @@
 $(document).ready(function () {
-
-	$('.star').on('click', function () {
-      $(this).toggleClass('star-checked');
-    });
-
-    $('.ckbox label').on('click', function () {
-      $(this).parents('tr').toggleClass('selected');
-    });
-
-    $('.btn-filter').on('click', function () {
-      var $target = $(this).data('target');
-      if ($target != 'all') {
-        $('.table tr').css('display', 'none');
-        $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
-      } else {
-        $('.table tr').css('display', 'none').fadeIn('slow');
-      }
-    })
-
+  
+  $('.btn-filter').on('click', function () {
+    var $target = $(this).data('target');
+    $('.table tr').css('display', 'none');
+    $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+  })
+  
   const pollsTable= document.getElementById("pollsTable")
+  
+  if(document.getElementsByClassName("donePoll").length == 0){
+    pollsTable.insertAdjacentHTML("beforeend", `
+      <tr class="donePoll" data-status="done" style="display:none;">
+        <td>
+          <div class="media">
+            <div class="media-body text-center">
+              <h4 class="title" style="color: darkgray; font-weight: 500;">
+                No Finished Polls
+              </h4>
+            </div>
+          </div>
+        </td>
+      </tr> 
+    `)
+  }else{
+    $('.table tr[data-status="done"]').css("display","none");
+  }
   
   if(document.getElementsByClassName("ongoingPoll").length == 0){
     pollsTable.insertAdjacentHTML("beforeend", `
-    <tr class="ongoingPoll" data-status="on_going">
-      <td>
-        <div class="media">
-          <div class="media-body">
-            <h4 class="title" style="
-              color: darkgray;
-              font-weight: 500;
-              text-align: center;">
-              No On going Polls
-            </h4>
+      <tr class="ongoingPoll" data-status="on_going">
+        <td>
+          <div class="media">
+            <div class="media-body text-center">
+              <h4 class="title" style="color: darkgray; font-weight: 500;">
+                No Active Polls
+              </h4>
+            </div>
           </div>
-        </div>
-      </td>
-    </tr>         
+        </td>
+      </tr>         
     `)
   }
-  if(document.getElementsByClassName("donePoll").length == 0){
-    pollsTable.insertAdjacentHTML("beforeend", `
-    <tr class="donePoll" data-status="done">
-      <td>
-        <div class="media">
-          <div class="media-body">
-            <h4 class="title" style="
-              color: darkgray;
-              font-weight: 500;
-              text-align: center;">
-              No Done Polls
-            </h4>
-          </div>
-        </div>
-      </td>
-    </tr> 
-    `)
-  }
+
 })
 
 const options_list= document.getElementById('poll_options')
 
 $('#add_opt').on('click',()=>{
   const options_count= options_list.childElementCount
-  if(options_count >= 2){
-    $('#rmv_opt').removeClass('d-none')
-  }
-  if(options_count <=3){
+  
+  if(options_count <= 3){
+    
     let opt_id= options_count
     options_list.insertAdjacentHTML('beforeend',`
-    <label class="form-label d-inline" for="opt${opt_id}">
-      Option ${opt_id}
-      <input type="text" name="options[${opt_id}][text]" id="opt${opt_id}" class="form-control form-control-lg"
-      placeholder="Enter an option" maxlength="200" required/>
-      <input type="number" value="${opt_id}" name="options[${opt_id}][id]"class="d-none"
-      maxlength="1" required/>
-    </label>
+    <div class="option-item">
+      <label class="form-label d-flex align-items-center" for="opt${opt_id}">
+          <div class="text-danger remove-opt" title="Remove">
+            <i class="fa fa-times-circle-o"></i>
+          </div>
+          <input type="text" name="options[${opt_id}][text]" id="opt${opt_id}" class="form-control form-control-lg"
+          placeholder="Enter an option" maxlength="200" required/>
+          <input type="number" value="${opt_id}" name="options[${opt_id}][id]"class="d-none" maxlength="1" required/>
+      </label>
+    </div>
     `)
+
+    if (options_count === 3) {
+      $('#add_opt').addClass('d-none');
+    }
+  }else{
+    showToast("The Maximum number of options are 4.");
   }
 })
 
-$('#rmv_opt').on('click',()=>{
-  const options_count= options_list.childElementCount
-  if(options_count <= 3){
-    $('#rmv_opt').addClass('d-none')
-  }
-  options_list.removeChild(options_list.lastElementChild);
-})
+$(document).on('click', '.remove-opt', function() {
+  $(this).closest('.option-item').remove();
+  $('#add_opt').removeClass('d-none');
+});
 
 function showToast(toastMsg){
   const msgToast= document.getElementById("errorToast")
@@ -102,7 +93,8 @@ function copyVoteLink(btn){
 } 
 
 ///////////////////
-const socket= io('http://localhost:5000/')
+const socketUrl = `${window.location.origin}/`
+const socket = io(socketUrl);
 
 socket.on('newVote', (voteId)=>{
   let total_voters= +document.getElementById('poll_info').getAttribute('total_voters')+1

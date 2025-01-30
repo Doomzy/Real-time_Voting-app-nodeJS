@@ -10,13 +10,20 @@ body{
 
 .ctrl-btns a{
 	border: 2px solid rgb(216, 216, 216);
-	padding: 1rem 0rem 1rem 0rem;
+	padding: 2rem 0rem 2rem 0rem;
 	box-shadow: 3px 3px 10px lightgrey;
 	color:dimgray;
+	max-width: 40%;
 }
 
 .ctrl-btns i{
     font-size: 3rem;
+}
+
+.remove-opt{
+	cursor: pointer;
+	font-size: 1.9rem;
+	padding-right: 0.7rem;
 }
 
 .content h1 {
@@ -124,7 +131,7 @@ body{
 	line-height: normal;
 	margin: 0;
 }
-.table-filter a{
+.table-filter h4{
 	color: #2BBCDE !important;
 	text-decoration: none;
 }
@@ -189,5 +196,75 @@ body{
 .details li {
 	list-style: none;
 	margin-bottom:10px;
-
   }
+
+#user-avatar{
+	width: 14rem;
+    height: 14rem;
+    text-align: center;
+    display: block;
+    align-content: center;
+	font-size: 5rem;
+    color: whitesmoke;
+	justify-self: center;
+	margin-bottom: 2rem;
+}
+
+  .loading-dots {
+	display: inline-block;
+	animation: blink 1.4s infinite;
+  }
+  
+  @keyframes blink {
+	0%, 20% {
+	  opacity: 0;
+	}
+	50% {
+	  opacity: 1;
+	}
+	80%, 100% {
+	  opacity: 0;
+	}
+  }
+
+  .profile-container {
+	margin-top: 50px;
+}
+
+.profile-card {
+	border: none;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 10px; /* Rounded corners */
+}
+
+.profile-card-header {
+	background-color: #007bff; /* Blue header */
+	color: white;
+	padding: 20px;
+	border-top-left-radius: 10px; /* Rounded top corners */
+	border-top-right-radius: 10px;
+}
+
+.profile-card-body {
+	padding: 20px;
+}
+.profile-image {
+	width: 150px; /* Adjust as needed */
+	height: 150px;
+	border-radius: 50%; /* Make it circular */
+	object-fit: cover; /* Prevent image distortion */
+	border: 3px solid white; /* Add a white border */
+	margin-bottom: 20px; /* Space below the image */
+	display: block; /* Center the image */
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.profile-info {
+	margin-bottom: 15px;
+}
+
+.profile-info strong {
+	font-weight: bold;
+	margin-right: 5px;
+}

@@ -3,11 +3,11 @@ const ongoingPolls= document.getElementsByClassName("ongoingPoll")
 if(ongoingPolls.length > 0){
     for(let i=0; i<ongoingPolls.length; i++){
         const timerElem= ongoingPolls[i].getElementsByClassName("timer")[0]
-        const page_type= ongoingPolls[i].getAttribute("data-type")
         const pollId= ongoingPolls[i].getAttribute("id")
 
+        const totalTime= ( +timerElem.getAttribute("data-total") || 0) * 60000
         const startTime= new Date(ongoingPolls[i].getElementsByClassName("date")[0].getAttribute("data"))
-        const endTime= new Date(startTime.getTime() + +timerElem.innerText *60000)
+        const endTime= new Date(startTime.getTime() + totalTime)
 
         timers[pollId]=  setInterval(()=>{
 
@@ -16,7 +16,7 @@ if(ongoingPolls.length > 0){
             timer.setSeconds(timer.getSeconds() + 1)
             
             if(timer > 0){
-                timerElem.innerText= 
+                timerElem.innerHTML= 
                 timer.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
                 + " : " +
                 timer.getSeconds().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
@@ -24,15 +24,7 @@ if(ongoingPolls.length > 0){
             else{
                 clearInterval(timers[pollId])
                 delete timers[pollId]
-                if(page_type == "list"){
-                    ongoingPolls[0].setAttribute("data-status", "done")
-                    ongoingPolls[0].classList.replace("ongoingPoll", "donePoll")
-
-                    timerElem.classList.replace("on_going", "done")
-                    timerElem.innerText= "Done"
-                }else{
-                    window.location.reload()
-                }
+                window.location.reload()
             }
         }, 1000) 
     }

@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node dist/app.js",
     "build": "tsc && npm run copy-assets",
-    "dev": "tsc && node dist/app.js",
+    "dev": "copyfiles -u 1 src/static/* src/views/**/*.ejs dist/ && tsc && node dist/app.js",
     "copy-assets": "copyfiles -u 1 src/static/* src/views/**/*.ejs dist/"
   },
   "author": "",

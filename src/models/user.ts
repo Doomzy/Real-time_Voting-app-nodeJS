@@ -44,8 +44,8 @@ UserSchema.statics.login= async function (email:string, password: string) {
         if(comparePass){
             delete user.password
             return user
-        }throw Error('Incorrect Password')
-    }throw Error('Incorrect Email')
+        }throw Error('Incorrect login data')
+    }throw Error('Incorrect login data')
 }
 
 export default mongoose.model<IUser, UserModel>("User", UserSchema)

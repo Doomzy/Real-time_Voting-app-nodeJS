@@ -70,7 +70,7 @@ async function showPoll(req: Request, res:Response) {
         const pollId: string= req.params.pid
         const poll: IPoll= await Poll.findById(pollId)
         const alreadyVoted: string|undefined= req.cookies[`poll-${pollId}`]
-        poll? res.render('polls/poll_page.ejs', {poll, alreadyVoted})
+        poll? res.render('polls/poll_page.ejs', {poll, alreadyVoted, req})
             :
         res.redirect('/')
     }catch(e){
@@ -81,7 +81,7 @@ async function showPoll(req: Request, res:Response) {
 async function userPolls(req: Request, res:Response) {
     try{
         const uId: string= res.locals.user.uid
-        await Poll.find({"owner.uid":uId})
+        await Poll.find({"owner.uid":uId}).sort({ createdAt: -1 })
         .then((polls)=>{
             let doneP: IPoll[]= []
             let ongoingP:IPoll[] = []

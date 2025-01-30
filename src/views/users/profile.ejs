@@ -1,26 +1,35 @@
 <%- include('../partials/_header.ejs') %>
 
-<div class="container mt-5">    
-  <div class="d-flex justify-content-end">
-    <a href="/" class="btn btn-outline-primary mt-3 btn-lg px-5">
-        Back Home
-    </a>
-  </div>
-    <div class="jumbotron bg-transparent">
-      <div class="row">
-          <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
-              <img src="https://i.pravatar.cc/250?u=<%=profileUser.email%>" alt="stack photo" class="img">
-          </div>
-          <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
-              <div class="container">
-                <h2><%=profileUser.first_name%> <%=profileUser.last_name%></h2>
+<div class="container profile-container">
+  <div class="row justify-content-center">
+      <div class="col-md-6">
+          <div class="card profile-card">
+              <div class="card-header profile-card-header">
+                  <h3 class="mb-0">Profile</h3>
               </div>
-                <hr>
-              <ul class="container details">
-                <li><h4><%=profileUser.email%></h4></li>
-                <li><p><%=profileUser.phone%></p></li>
-              </ul>
+              <div class="card-body profile-card-body">
+                  <span id="user-avatar" class="rounded-circle bg-info ">
+                      <%= profileUser.first_name.charAt(0) + profileUser.last_name.charAt(0)%>
+                  </span>
+                  <div class="profile-info">
+                      <strong>Name:</strong> 
+                      <%=profileUser.first_name%> <%=profileUser.last_name%>
+                  </div>
+                  <div class="profile-info">
+                      <strong>Email:</strong>
+                      <%=profileUser.email%>
+                  </div>
+                  <div class="profile-info">
+                      <strong>Phone Number:</strong>
+                      <%=profileUser.phone%>
+                  </div>
+
+                  <div class="d-flex justify-content-end">
+                    <a href="/" class="btn btn-outline-primary mt-3 btn-lg px-5"> Back Home </a>
+                  </div>
+              </div>
           </div>
       </div>
-    </div>
+  </div>
+</div>
 <%- include('../partials/_footer.ejs') %>

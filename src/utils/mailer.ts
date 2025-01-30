@@ -62,7 +62,7 @@ export default function(poll: IPoll){
     `
 
     var mailOptions = {
-        from: process.env.MAIL_USER,
+        from:`Polls Application" <${process.env.MAIL_USER}>`,
         to: sendResultMails,
         subject: `Poll Result: ${poll.topic}`,
         html: mailHTML

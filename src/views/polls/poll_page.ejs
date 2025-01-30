@@ -7,7 +7,9 @@
                 <% if(poll.done == true){ %>
                     Status: Done
                 <% }else{ %>
-                    <span class="timer"><%= poll.duration %></span>
+                    <span class="timer"  data-total="<%= poll.duration %>">
+                        <span class="loading-dots">...</span>
+                    </span>
                 <% } %>
             </h4>    
             <% if(user && poll.owner.uid == user.uid){ %>
@@ -21,8 +23,8 @@
             <div class="divider d-flex align-items-center my-2"></div>
             <h4>Share Your Poll:</h4>
             <div id="share_poll">
-                <code id="poll_link"> http://localhost:5000/polls/vote/<%= poll.id %> </code>
-                <button class="btn btn-outline-secondary mt-3" onclick="copyVoteLink(this)" >
+                <code id="poll_link"> <%= `${req.protocol}://${req.get('host')}/polls/vote/${poll.id}` %> </code>
+                    <button class="btn btn-outline-secondary mt-3" onclick="copyVoteLink(this)" >
                     Copy
                 </button>
             </div>
