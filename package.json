@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node dist/app.js",
+    "start": "node dist/index.js",
     "build": "tsc && npm run copy-assets",
-    "dev": "copyfiles -u 1 src/static/* src/views/**/*.ejs dist/ && tsc && node dist/app.js",
+    "dev": "copyfiles -u 1 src/static/* src/views/**/*.ejs dist/ && tsc && node dist/index.js",
     "copy-assets": "copyfiles -u 1 src/static/* src/views/**/*.ejs dist/"
   },
   "author": "",
