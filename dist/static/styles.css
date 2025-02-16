@@ -1,0 +1,270 @@
+body{
+	background-color: hsl(0, 0%, 96%);
+	padding-bottom: 1rem;
+}
+
+.ctrl-btns{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ctrl-btns a{
+	border: 2px solid rgb(216, 216, 216);
+	padding: 2rem 0rem 2rem 0rem;
+	box-shadow: 3px 3px 10px lightgrey;
+	color:dimgray;
+	max-width: 40%;
+}
+
+.ctrl-btns i{
+    font-size: 3rem;
+}
+
+.remove-opt{
+	cursor: pointer;
+	font-size: 1.9rem;
+	padding-right: 0.7rem;
+}
+
+.content h1 {
+	text-align: center;
+}
+.content .content-footer p {
+	color: #6d6d6d;
+    font-size: 12px;
+    text-align: center;
+}
+.content .content-footer p a {
+	color: inherit;
+	font-weight: bold;
+}
+.panel {
+	border: 1px solid #ddd;
+	background-color: #fcfcfc;
+}
+.panel .btn-group {
+	margin: 15px 0 30px;
+}
+.panel .btn-group .btn {
+	transition: background-color .3s ease;
+}
+.table-filter {
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+}
+.table-filter tbody tr:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+.table-filter tbody tr td {
+	padding: 10px;
+	vertical-align: middle;
+	border-top-color: #eee;
+}
+.table-filter tbody tr.selected td {
+	background-color: #eee;
+}
+.ckbox {
+	position: relative;
+}
+.ckbox input[type="checkbox"] {
+	opacity: 0;
+}
+.ckbox label {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.ckbox label:before {
+	content: '';
+	top: 1px;
+	left: 0;
+	width: 18px;
+	height: 18px;
+	display: block;
+	position: absolute;
+	border-radius: 2px;
+	border: 1px solid #bbb;
+	background-color: #fff;
+}
+.ckbox input[type="checkbox"]:checked + label:before {
+	border-color: #2BBCDE;
+	background-color: #2BBCDE;
+}
+.ckbox input[type="checkbox"]:checked + label:after {
+	top: 3px;
+	left: 3.5px;
+	content: '\e013';
+	color: #fff;
+	font-size: 11px;
+	font-family: 'Glyphicons Halflings';
+	position: absolute;
+}
+.table-filter .star {
+	color: #ccc;
+	text-align: center;
+	display: block;
+}
+.table-filter .star.star-checked {
+	color: #F0AD4E;
+}
+.table-filter .star:hover {
+	color: #ccc;
+}
+.table-filter .star.star-checked:hover {
+	color: #F0AD4E;
+}
+.table-filter .media-photo {
+	width: 35px;
+}
+.table-filter .media-body {
+    display: block;
+}
+.table-filter .media-meta {
+	font-size: 11px;
+	color: #999;
+}
+.table-filter .media .title {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: normal;
+	margin: 0;
+}
+.table-filter h4{
+	color: #2BBCDE !important;
+	text-decoration: none;
+}
+.table-filter .media .title span {
+	font-size: .8em;
+	margin-right: 20px;
+}
+.table-filter .media .title span.on_going {
+	color: #5cb85c;
+}
+.table-filter .media .title span.done {
+	color: #d9534f;
+}
+.table-filter .media .summary {
+	font-size: 14px;
+}
+
+#Poll_vote input[type="radio"] {
+	opacity: 0;
+	width: 2rem;
+	height: 1em;
+	background-color: #fff;
+	position: absolute;
+}
+  
+#Poll_vote input[type="radio"]:checked+label {
+	background-color: #007bff;
+	color: whitesmoke;
+}
+
+#Poll_vote label{
+	cursor: pointer;
+	padding: 10px;
+	background-color: white;
+	border-bottom: 2px solid lightgray;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.option_title{
+	background-color: #007bff;
+	height: 1.2rem;
+	align-self: center;
+	border-radius: 5px;
+	color: whitesmoke;
+	min-width: 1%;
+	max-width: 92.5%;
+	transition: ease-in-out 1s;
+}
+
+#Poll_result .percent{
+	padding: 10px 0px 10px 10px;
+}
+
+#errorToast{
+	position: fixed;
+	right: 10px;
+	bottom: 0;
+	z-index: 10;
+}
+
+.details li {
+	list-style: none;
+	margin-bottom:10px;
+  }
+
+#user-avatar{
+	width: 14rem;
+    height: 14rem;
+    text-align: center;
+    display: block;
+    align-content: center;
+	font-size: 5rem;
+    color: whitesmoke;
+	justify-self: center;
+	margin-bottom: 2rem;
+}
+
+  .loading-dots {
+	display: inline-block;
+	animation: blink 1.4s infinite;
+  }
+  
+  @keyframes blink {
+	0%, 20% {
+	  opacity: 0;
+	}
+	50% {
+	  opacity: 1;
+	}
+	80%, 100% {
+	  opacity: 0;
+	}
+  }
+
+  .profile-container {
+	margin-top: 50px;
+}
+
+.profile-card {
+	border: none;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 10px; /* Rounded corners */
+}
+
+.profile-card-header {
+	background-color: #007bff; /* Blue header */
+	color: white;
+	padding: 20px;
+	border-top-left-radius: 10px; /* Rounded top corners */
+	border-top-right-radius: 10px;
+}
+
+.profile-card-body {
+	padding: 20px;
+}
+.profile-image {
+	width: 150px; /* Adjust as needed */
+	height: 150px;
+	border-radius: 50%; /* Make it circular */
+	object-fit: cover; /* Prevent image distortion */
+	border: 3px solid white; /* Add a white border */
+	margin-bottom: 20px; /* Space below the image */
+	display: block; /* Center the image */
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.profile-info {
+	margin-bottom: 15px;
+}
+
+.profile-info strong {
+	font-weight: bold;
+	margin-right: 5px;
+}
